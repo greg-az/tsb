@@ -69,7 +69,7 @@
       <div>
       <button (click)="saveTutorial()" class="btn btn-success">Submit Order</button>
       <br/><br/>
-      <button class="btn btn-success" (click)="newPizza()">Add Another Pizza</button>
+      <button class="btn btn-success" [disabled]="pizza.ptopping == '' || pizza.pbase == '' || pizza.psize == ''" (click)="newPizza()">Add Another Pizza</button>
       </div>
     </div>
 
