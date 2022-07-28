@@ -9,4 +9,11 @@ export class Tutorial {
   pbaseS?: string;
   description?: string;
   published?: boolean;
+  pizzas?: Pizza[];
+}
+
+export class Pizza {
+  psize?: string;
+  ptopping?: string;
+  pbase?: string;
 }

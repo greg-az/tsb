@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Tutorial } from 'src/app/models/tutorial.model';
+import { Tutorial, Pizza } from 'src/app/models/tutorial.model';
 import { TutorialService } from 'src/app/services/tutorial.service';
 
 @Component({
@@ -9,16 +9,17 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 })
 export class AddTutorialComponent {
 
+  pizza: Pizza = {
+    psize: '',
+    ptopping: '',
+    pbase: ''
+  }
+
   tutorial: Tutorial = {
     title: '',
     description: '',
-    psize: '',
-    psizeS: '',
-    ptopping: '',
-    ptoppingS: '',
-    pbase: '',
-    pbaseS: '',
-    published: false
+    published: false,
+    pizzas: []
   };
   submitted = false;
 
@@ -28,12 +29,7 @@ export class AddTutorialComponent {
     const data = {
       title: this.tutorial.title,
       description: this.tutorial.description,
-      psize: this.tutorial.psize,
-      pbase: this.tutorial.pbase,
-      ptopping: this.tutorial.ptopping,
-      psizeS: this.tutorial.psizeS,
-      pbaseS: this.tutorial.pbaseS,
-      ptoppingS: this.tutorial.ptoppingS
+      orders: JSON.stringify(this.tutorial.pizzas)
     };
 
     this.tutorialService.create(data)
@@ -51,14 +47,26 @@ export class AddTutorialComponent {
     this.tutorial = {
       title: '',
       description: '',
-      psize: '',
-      ptopping: '',
-      pbase: '',
-      psizeS: '',
-      ptoppingS: '',
-      pbaseS: '',
+      pizzas: [],
       published: false
     };
   }
 
+  newPizza(): void {
+    this.submitted = false;
+    this.tutorial.pizzas?.push(this.pizza);
+    
+    this.tutorial = {
+      title: this.tutorial.title,
+      description: this.tutorial.description,
+      pizzas: this.tutorial.pizzas,
+      published: false
+    };
+    this.pizza = {
+      psize: '',
+      ptopping: '',
+      pbase: ''
+    };
+  }
+  
 }
