@@ -39,7 +39,7 @@
           class="list-group-item"
           *ngFor="let pizza of currentTutorial.pizzas; let i = index"
         >
-          1 order of {{ pizza.ptopping }}{{ pizza.pbase }}{{ pizza.psize }}
+          1 order of {{ pizza.ptopping }}{{ pizza.pbase }}{{ pizza.psize }} <span  (click)="updateTutorial(pizza)">X</span>
           <div *ngIf="pizza.ptopping=='Veg'"><img src="../../../assets/vegpizza.jpg"/></div>
           <div *ngIf="pizza.ptopping=='Meatballs'"><img src="../../../assets/meatball.jpg"/></div>
           <div *ngIf="pizza.ptopping=='Mustard'"><img src="../../../assets/mustard.jpg"/></div>

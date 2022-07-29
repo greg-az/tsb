@@ -64,20 +64,37 @@ export class TutorialDetailsComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.currentTutorial.published = status;
-          this.message = res.message ? res.message : 'The status was updated successfully!';
+          this.message = res.message ? res.message : 'Order updated!';
         },
         error: (e) => console.error(e)
       });
   }
 
-  updateTutorial(): void {
+  updateTutorial(p? : Pizza): void {
     this.message = '';
 
-    this.tutorialService.update(this.currentTutorial.id, this.currentTutorial)
+    var t: Array<Pizza> = [];
+    if (this.currentTutorial.pizzas && p) {
+      t = this.currentTutorial.pizzas;
+      var index: number = t.indexOf(p, 0);
+      if (index > -1) {
+        t.splice(index, 1);
+      }
+      this.currentTutorial.pizzas = t;
+    }
+
+    var updateObject = {
+      title: this.currentTutorial.title,
+      description: this.currentTutorial.description,
+      pizzas: JSON.stringify(this.currentTutorial.pizzas),
+      published: this.currentTutorial.published
+    }
+
+    this.tutorialService.update(this.currentTutorial.id, updateObject)
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.message = res.message ? res.message : 'This tutorial was updated successfully!';
+          this.message = res.message ? res.message : 'Pizza removed from order successfully';
         },
         error: (e) => console.error(e)
       });

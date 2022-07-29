@@ -41,7 +41,7 @@
         />
       </div>
 
-      <h2>First Pizza</h2>
+      <h2>Pizza Details</h2>
 
       <div class="form-group">
         <label for="psize">Select Pizza Size</label>
@@ -71,16 +71,16 @@
       </div>
 
       <div>
-      <button (click)="saveTutorial()" class="btn btn-success">Submit Order</button>
+      <button (click)="saveTutorial()" [disabled]="tutorial.pizzas?.length==0 || !tutorial.title || !tutorial.description" class="btn btn-success">Submit Order</button>
       <br/><br/>
-      <button class="btn btn-success" [disabled]="pizza.ptopping == '' || pizza.pbase == '' || pizza.psize == ''" (click)="newPizza()">Add Another Pizza</button>
+      <button class="btn btn-success" [disabled]="pizza.ptopping == '' || pizza.pbase == '' || pizza.psize == ''" (click)="newPizza()">Add Pizza to Order</button>
       </div>
     </div>
 
 
     <div *ngIf="submitted">
       <h4>order was submitted successfully!</h4>
-      <button class="btn btn-success" (click)="newTutorial()">Add Another Order</button>
+      <button class="btn btn-success" (click)="newTutorial()">Order Again</button>
     </div>
   </div>
 </div>

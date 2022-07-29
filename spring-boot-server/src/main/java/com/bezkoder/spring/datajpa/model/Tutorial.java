@@ -16,8 +16,8 @@ public class Tutorial {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "orders")
-	private String orders;
+	@Column(name = "pizzas")
+	private String pizzas;
 
 	@Column(name = "published")
 	private boolean published;
@@ -26,11 +26,11 @@ public class Tutorial {
 
 	}
 
-	public Tutorial(String title, String description, String orders, boolean published) {
+	public Tutorial(String title, String description, String pizzas, boolean published) {
 		this.title = title;
 		this.description = description;
 		this.published = published;
-		this.orders = orders;
+		this.pizzas = pizzas;
 	}
 
 	public long getId() {
@@ -41,12 +41,16 @@ public class Tutorial {
 		return title;
 	}
 
-	public String getOrders() {
-		return orders;
+	public String getPizzas() {
+		return pizzas;
 	}
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public void setPizzas(String pizzas) {
+		this.pizzas = pizzas;
 	}
 
 	public String getDescription() {
