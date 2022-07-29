@@ -1,13 +1,17 @@
+
+<div *ngIf="!submitted">
 <div style="float:left;">
   Current Pizzas w this Order
+  X to remove
   <ul class="list-group">
     <li
       class="list-group-item"
       *ngFor="let pizza of tutorial.pizzas; let i = index"
     >
-      1 order of {{ pizza.ptopping }}{{ pizza.pbase }}{{ pizza.psize }}
+      1 order of {{ pizza.ptopping }}{{ pizza.pbase }}{{ pizza.psize }} <span  (click)="removePizza(pizza)">X</span>
     </li>
   </ul>
+</div>
 </div>
 
 <div>

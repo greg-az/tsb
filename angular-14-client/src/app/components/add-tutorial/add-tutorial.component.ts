@@ -29,7 +29,7 @@ export class AddTutorialComponent {
     const data = {
       title: this.tutorial.title,
       description: this.tutorial.description,
-      orders: JSON.stringify(this.tutorial.pizzas)
+      pizzas: JSON.stringify(this.tutorial.pizzas)
     };
 
     this.tutorialService.create(data)
@@ -60,6 +60,31 @@ export class AddTutorialComponent {
       title: this.tutorial.title,
       description: this.tutorial.description,
       pizzas: this.tutorial.pizzas,
+      published: false
+    };
+    this.pizza = {
+      psize: '',
+      ptopping: '',
+      pbase: ''
+    };
+  }
+
+  removePizza(p: Pizza): void {
+    this.submitted = false;
+    var t: Array<Pizza> = [];
+    if (this.tutorial.pizzas) {
+      t = this.tutorial.pizzas;
+    }
+
+    var index: number = t.indexOf(p, 0);
+    if (index > -1) {
+      t.splice(index, 1);
+    }
+    
+    this.tutorial = {
+      title: this.tutorial.title,
+      description: this.tutorial.description,
+      pizzas: t,
       published: false
     };
     this.pizza = {

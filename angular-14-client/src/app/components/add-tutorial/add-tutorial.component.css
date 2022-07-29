@@ -2,3 +2,8 @@
   max-width: 400px;
   margin: auto;
 }
+
+span:hover{ 
+  background-color: red;
+  cursor: pointer;
+}

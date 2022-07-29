@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tutorial } from 'src/app/models/tutorial.model';
+import { Tutorial, Pizza } from 'src/app/models/tutorial.model';
+import { JsonPipe } from '@angular/common';
+import { devOnlyGuardedExpression } from '@angular/compiler';
 
 @Component({
   selector: 'app-tutorial-details',
@@ -15,6 +17,7 @@ export class TutorialDetailsComponent implements OnInit {
   @Input() currentTutorial: Tutorial = {
     title: '',
     description: '',
+    pizzas: [],
     published: false
   };
   
@@ -36,6 +39,10 @@ export class TutorialDetailsComponent implements OnInit {
     this.tutorialService.get(id)
       .subscribe({
         next: (data) => {
+          if(data.pizzas) {
+            var t: Array<Pizza> = JSON.parse(data.pizzas?.toString());
+            data.pizzas = t;
+          }
           this.currentTutorial = data;
           console.log(data);
         },

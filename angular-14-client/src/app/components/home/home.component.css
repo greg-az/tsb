@@ -1,0 +1,23 @@
+.lander img {
+    max-width: 15%;  
+    height: 15%;  
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.menu img {
+    max-width: 100%;  
+    height: auto; 
+}
+
+#mb {
+    position: absolute;
+    margin: 50px 0 0 -800px;
+}
+
+#mb button {
+    background-color:red;
+}
+
