@@ -2,3 +2,13 @@
   max-width: 400px;
   margin: auto;
 }
+
+.pDisplay img {
+  max-width: 35%;  
+  height: 35%;  
+}
+
+span:hover{ 
+  background-color: red;
+  cursor: pointer;
+}

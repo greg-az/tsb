@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TutorialService } from 'src/app/services/tutorial.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tutorial } from 'src/app/models/tutorial.model';
+import { Tutorial, Pizza } from 'src/app/models/tutorial.model';
+import { JsonPipe } from '@angular/common';
+import { devOnlyGuardedExpression } from '@angular/compiler';
 
 @Component({
   selector: 'app-tutorial-details',
@@ -15,6 +17,7 @@ export class TutorialDetailsComponent implements OnInit {
   @Input() currentTutorial: Tutorial = {
     title: '',
     description: '',
+    pizzas: [],
     published: false
   };
   
@@ -36,6 +39,10 @@ export class TutorialDetailsComponent implements OnInit {
     this.tutorialService.get(id)
       .subscribe({
         next: (data) => {
+          if(data.pizzas) {
+            var t: Array<Pizza> = JSON.parse(data.pizzas?.toString());
+            data.pizzas = t;
+          }
           this.currentTutorial = data;
           console.log(data);
         },
@@ -57,20 +64,37 @@ export class TutorialDetailsComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.currentTutorial.published = status;
-          this.message = res.message ? res.message : 'The status was updated successfully!';
+          this.message = res.message ? res.message : 'Order updated!';
         },
         error: (e) => console.error(e)
       });
   }
 
-  updateTutorial(): void {
+  updateTutorial(p? : Pizza): void {
     this.message = '';
 
-    this.tutorialService.update(this.currentTutorial.id, this.currentTutorial)
+    var t: Array<Pizza> = [];
+    if (this.currentTutorial.pizzas && p) {
+      t = this.currentTutorial.pizzas;
+      var index: number = t.indexOf(p, 0);
+      if (index > -1) {
+        t.splice(index, 1);
+      }
+      this.currentTutorial.pizzas = t;
+    }
+
+    var updateObject = {
+      title: this.currentTutorial.title,
+      description: this.currentTutorial.description,
+      pizzas: JSON.stringify(this.currentTutorial.pizzas),
+      published: this.currentTutorial.published
+    }
+
+    this.tutorialService.update(this.currentTutorial.id, updateObject)
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.message = res.message ? res.message : 'This tutorial was updated successfully!';
+          this.message = res.message ? res.message : 'Pizza removed from order successfully';
         },
         error: (e) => console.error(e)
       });

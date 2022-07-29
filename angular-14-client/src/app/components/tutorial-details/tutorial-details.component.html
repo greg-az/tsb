@@ -1,4 +1,7 @@
+
+
 <div *ngIf="viewMode; else editable">
+
   <div *ngIf="currentTutorial.id">
     <h4>Orders</h4>
     <div>
@@ -28,6 +31,22 @@
 </div>
 
 <ng-template #editable>
+  <div *ngIf="currentTutorial.pizzas">
+    <div style="float:left; width:320px;">
+      Current Pizzas w this Order
+      <ul class="list-group pDisplay">
+        <li
+          class="list-group-item"
+          *ngFor="let pizza of currentTutorial.pizzas; let i = index"
+        >
+          1 order of {{ pizza.ptopping }}{{ pizza.pbase }}{{ pizza.psize }} <span  (click)="updateTutorial(pizza)">X</span>
+          <div *ngIf="pizza.ptopping=='Veg'"><img src="../../../assets/vegpizza.jpg"/></div>
+          <div *ngIf="pizza.ptopping=='Meatballs'"><img src="../../../assets/meatball.jpg"/></div>
+          <div *ngIf="pizza.ptopping=='Mustard'"><img src="../../../assets/mustard.jpg"/></div>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div *ngIf="currentTutorial.id" class="edit-form">
     <h4>Orders</h4>
     <form>

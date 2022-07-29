@@ -64,9 +64,7 @@ public class TutorialController {
 	public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
 		try {
 			Tutorial _tutorial = tutorialRepository
-					.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(),
-					 tutorial.getPSize(), tutorial.getPBase(), tutorial.getPTopping(),
-					 tutorial.getPSizeS(), tutorial.getPBaseS(), tutorial.getPToppingS(), false));
+					.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), tutorial.getPizzas(), false));
 			return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,6 +78,7 @@ public class TutorialController {
 		if (tutorialData.isPresent()) {
 			Tutorial _tutorial = tutorialData.get();
 			_tutorial.setTitle(tutorial.getTitle());
+			_tutorial.setPizzas(tutorial.getPizzas());
 			_tutorial.setDescription(tutorial.getDescription());
 			_tutorial.setPublished(tutorial.isPublished());
 			return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);

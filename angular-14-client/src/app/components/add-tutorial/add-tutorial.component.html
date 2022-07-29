@@ -1,3 +1,19 @@
+
+<div *ngIf="!submitted">
+<div style="float:left;">
+  Current Pizzas w this Order
+  X to remove
+  <ul class="list-group">
+    <li
+      class="list-group-item"
+      *ngFor="let pizza of tutorial.pizzas; let i = index"
+    >
+      1 order of {{ pizza.ptopping }}{{ pizza.pbase }}{{ pizza.psize }} <span  (click)="removePizza(pizza)">X</span>
+    </li>
+  </ul>
+</div>
+</div>
+
 <div>
   <div class="submit-form">
     <div *ngIf="!submitted">
@@ -25,11 +41,11 @@
         />
       </div>
 
-      <h2>First Pizza</h2>
+      <h2>Pizza Details</h2>
 
       <div class="form-group">
         <label for="psize">Select Pizza Size</label>
-        <select [(ngModel)]='tutorial.psize' name="psize" id="psize" class='form-control'>
+        <select [(ngModel)]='pizza.psize' name="psize" id="psize" class='form-control'>
           <option value="12">12 inch</option>
           <option value="14">14 inch</option>
           <option value="16">16 inch</option>
@@ -38,7 +54,7 @@
 
       <div class="form-group">
         <label for="pbase">Select Pizza Base</label>
-        <select [(ngModel)]='tutorial.pbase' name="pbase" id="pbase" class='form-control'>
+        <select [(ngModel)]='pizza.pbase' name="pbase" id="pbase" class='form-control'>
           <option value="Thin">Thin Crust</option>
           <option value="Thick">Thick Crust</option>
           <option value="DeepDish">Deep Dish</option>
@@ -47,36 +63,7 @@
 
       <div class="form-group">
         <label for="ptopping">Select Pizza Topping</label>
-        <select [(ngModel)]='tutorial.ptopping' name="ptopping" id="ptopping" class='form-control'>
-          <option value="Mustard">Grey Poupon</option>
-          <option value="Meatballs">Possum Meatballs</option>
-          <option value="Veg">Assorted Sprouts & Flowers</option>
-        </select>  
-      </div>
-
-      <h2>Second Pizza (optional)</h2>
-
-      <div class="form-group">
-        <label for="psizeS">Select 2nd Pizza Size</label>
-        <select [(ngModel)]='tutorial.psizeS' name="psizeS" id="psizeS" class='form-control'>
-          <option value="12">12 inch</option>
-          <option value="14">14 inch</option>
-          <option value="16">16 inch</option>
-        </select>  
-      </div>
-
-      <div class="form-group">
-        <label for="pbaseS">Select 2nd Pizza Base</label>
-        <select [(ngModel)]='tutorial.pbaseS' name="pbaseS" id="pbaseS" class='form-control'>
-          <option value="Thin">Thin Crust</option>
-          <option value="Thick">Thick Crust</option>
-          <option value="DeepDish">Deep Dish</option>
-        </select>  
-      </div>
-
-      <div class="form-group">
-        <label for="ptoppingS">Select 2nd Pizza Topping</label>
-        <select [(ngModel)]='tutorial.ptoppingS' name="ptoppingS" id="ptoppingS" class='form-control'>
+        <select [(ngModel)]='pizza.ptopping' name="ptopping" id="ptopping" class='form-control'>
           <option value="Mustard">Grey Poupon</option>
           <option value="Meatballs">Possum Meatballs</option>
           <option value="Veg">Assorted Sprouts & Flowers</option>
@@ -84,14 +71,16 @@
       </div>
 
       <div>
-      <button (click)="saveTutorial()" class="btn btn-success">Submit Order</button>
-      <br><br>
+      <button (click)="saveTutorial()" [disabled]="tutorial.pizzas?.length==0 || !tutorial.title || !tutorial.description" class="btn btn-success">Submit Order</button>
+      <br/><br/>
+      <button class="btn btn-success" [disabled]="pizza.ptopping == '' || pizza.pbase == '' || pizza.psize == ''" (click)="newPizza()">Add Pizza to Order</button>
       </div>
     </div>
 
+
     <div *ngIf="submitted">
       <h4>order was submitted successfully!</h4>
-      <button class="btn btn-success" (click)="newTutorial()">Add Another Order</button>
+      <button class="btn btn-success" (click)="newTutorial()">Order Again</button>
     </div>
   </div>
 </div>
